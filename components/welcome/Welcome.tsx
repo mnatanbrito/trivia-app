@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { RootState } from '../../reducers';
+import { fetchTrivia, GameSlice } from '../game/slice'
 import defaultStyles from '../../defaultStyles';
 import colors from '../../colors';
 import Button from '../shared/Button';
 import Container from '../shared/Container';
-import { useNavigation } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   welcomeBlock: {
@@ -44,11 +47,24 @@ const styles = StyleSheet.create({
 });
 
 export default function Welcome() {
+  const dispatch = useDispatch()
+  const gameSlice = useSelector((state: RootState) => state.game) as GameSlice;
   const navigation = useNavigation();
 
   const onBegin = () => {
-    navigation.navigate('Game');
+    dispatch(fetchTrivia());
   };
+
+  useEffect(() => {
+    if(gameSlice.hasFetched) {
+      if(!gameSlice.fetchError) {
+        navigation.navigate('Game');
+      }
+      else {
+        /* show error feedback */
+      }
+    }
+  }, [gameSlice.hasFetched, gameSlice.fetchError])
 
   return (
     <Container>
@@ -64,7 +80,7 @@ export default function Welcome() {
       </Text>
       <Text style={styles.question}>Can you score 100%?</Text>
       <View style={styles.beginContainer}>
-        <Button text="Begin" onPress={onBegin} />
+        <Button text="Begin" loading={gameSlice.isFetching} onPress={onBegin} />
       </View>
     </Container>
   );

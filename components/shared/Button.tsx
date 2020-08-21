@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
+
 import colors from '../../colors';
 
 const styles = StyleSheet.create({
@@ -22,6 +23,7 @@ type ButtonProps = {
   bg?: string;
   color?: string;
   text: string;
+  loading: boolean;
   onPress: () => void;
 };
 
@@ -29,6 +31,7 @@ const Button: React.FC<ButtonProps> = ({
   bg = colors.PRIMARY_GREEN,
   color = 'white',
   text,
+  loading = false,
   onPress,
 }) => (
   <TouchableOpacity
@@ -41,7 +44,11 @@ const Button: React.FC<ButtonProps> = ({
     activeOpacity={0.8}
     onPress={onPress}
   >
-    <Text
+    {loading && (
+      <ActivityIndicator  size={32} color={color} />
+    )}
+    {!loading && (
+      <Text
       style={[
         styles.buttonText,
         {
@@ -51,6 +58,8 @@ const Button: React.FC<ButtonProps> = ({
     >
       {text}
     </Text>
+    )}
+    
   </TouchableOpacity>
 );
 
