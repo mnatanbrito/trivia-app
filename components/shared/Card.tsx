@@ -8,7 +8,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     borderRadius: 20,
-    paddingVertical: 20,
+    borderColor: colors.DARKEST_GREEN,
+    paddingTop: 35,
     height: '70%',
     shadowColor: '#4A5568',
     shadowOffset: {
@@ -29,7 +30,7 @@ const Card: React.FC<any> = ({ bg = colors.PRIMARY_GREEN, children }) => {
     <View
       style={{
         width,
-        height,
+        justifyContent: 'center',
         alignItems: 'center',
       }}
     >
@@ -38,7 +39,8 @@ const Card: React.FC<any> = ({ bg = colors.PRIMARY_GREEN, children }) => {
           styles.card,
           {
             width: width - 60,
-            height: height * 0.61,
+            height: 'auto',
+            minHeight: height * 0.55,
             backgroundColor: bg,
           },
         ]}

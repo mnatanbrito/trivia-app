@@ -30,6 +30,7 @@ const gameSlice: any = createSlice({
   reducers: {
     resetGame(state) {
       state.started = false;
+      state.questions = [];
       state.currentQuestion = 0;
       state.correctAnswerCount = 0;
     },
@@ -41,8 +42,6 @@ const gameSlice: any = createSlice({
     fetchSucceeded(state, action: PayloadAction<Question[]>) {
       const questions = action.payload;
 
-      console.log(`fetchSucceeded = ${typeof questions}`);
-
       state.started = true;
       state.currentQuestion = 0;
 
@@ -52,21 +51,22 @@ const gameSlice: any = createSlice({
     },
     fetchFailed(state, action: PayloadAction<{ error: string }>) {
       const { error } = action.payload;
+
       state.isFetching = false;
       state.hasFetched = true;
       state.fetchError = error;
     },
-    answerQuestion(state, action: PayloadAction<{ answer: string }>) {
-      const { answer } = action.payload;
+    answerQuestion(state, action: PayloadAction<string>) {
+      const answer = action.payload;
 
       const questionInSlice = state.questions[state.currentQuestion];
       if (questionInSlice) {
         const isRightAnswer = questionInSlice.correctAnswer === answer;
         if (isRightAnswer) {
-          state.correctAnswerCount++;
+          state.correctAnswerCount += 1;
         }
 
-        state.currentQuestion++;
+        state.currentQuestion += 1;
       }
     },
   },

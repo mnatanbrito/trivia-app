@@ -1,5 +1,10 @@
 import React from 'react';
-import { Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
+import {
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 
 import colors from '../../colors';
 
@@ -44,22 +49,19 @@ const Button: React.FC<ButtonProps> = ({
     activeOpacity={0.8}
     onPress={onPress}
   >
-    {loading && (
-      <ActivityIndicator  size={32} color={color} />
-    )}
+    {loading && <ActivityIndicator size={32} color={color} />}
     {!loading && (
       <Text
-      style={[
-        styles.buttonText,
-        {
-          color,
-        },
-      ]}
-    >
-      {text}
-    </Text>
+        style={[
+          styles.buttonText,
+          {
+            color,
+          },
+        ]}
+      >
+        {text}
+      </Text>
     )}
-    
   </TouchableOpacity>
 );
 
