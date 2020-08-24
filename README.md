@@ -11,6 +11,6 @@ expo start
 ```
 
 
-<img src="welcome.png" alt="Welcome screen" width="320" height="640" />
-<img src="game.png" alt="Welcome screen" width="320" height="640" />
-<img src="results.png" alt="Welcome screen" width="320" height="640" />
+<img src="welcome.png" alt="Welcome screen" width="320" height="680" />
+<img src="game.png" alt="Welcome screen" width="320" height="680" />
+<img src="results.png" alt="Welcome screen" width="320" height="680" />
