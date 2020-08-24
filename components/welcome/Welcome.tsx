@@ -56,7 +56,7 @@ export default function Welcome() {
         <Text style={styles.welcomeIntro}>Welcome to the</Text>
         <View style={defaultStyles.inline}>
           <Text style={styles.trivia}>Trivia </Text>
-          <Text style={styles.challenge}>Challange</Text>
+          <Text style={styles.challenge}>Challenge!</Text>
         </View>
       </View>
       <Text style={styles.instructions}>

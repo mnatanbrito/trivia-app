@@ -40,7 +40,7 @@ const Card: React.FC<any> = ({ bg = colors.PRIMARY_GREEN, children }) => {
           {
             width: width - 60,
             height: 'auto',
-            minHeight: height * 0.55,
+            minHeight: height * 0.58,
             backgroundColor: bg,
           },
         ]}

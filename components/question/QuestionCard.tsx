@@ -11,6 +11,8 @@ const styles = StyleSheet.create({
     color: colors.DARKEST_GREEN,
     fontWeight: '600',
     marginBottom: 30,
+    width: '85%',
+    textAlign: 'center',
   },
   question: {
     fontSize: 32,
@@ -24,7 +26,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     width: '100%',
     position: 'absolute',
-    bottom: 0,
+    left: 0,
+    bottom: -1,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'stretch',
