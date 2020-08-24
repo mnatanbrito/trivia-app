@@ -28,7 +28,7 @@ type ButtonProps = {
   bg?: string;
   color?: string;
   text: string;
-  loading: boolean;
+  loading?: boolean;
   onPress: () => void;
 };
 

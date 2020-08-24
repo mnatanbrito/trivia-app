@@ -1,6 +1,6 @@
-import { XmlEntities } from 'html-entities';
+import { AllHtmlEntities } from 'html-entities';
 
-const entities = new XmlEntities();
+const entities = new AllHtmlEntities();
 
 export const decodeHtml = (html: string): string => {
   return entities.decode(html);

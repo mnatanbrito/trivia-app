@@ -20,6 +20,7 @@ function Routes() {
         <Stack.Screen
           name={WelcomeRoute}
           component={Welcome}
+
           options={{
             headerShown: false,
             gestureEnabled: false,

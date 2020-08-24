@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
 
 import defaultStyles from '../../defaultStyles';
+import colors from '../../colors';
 
 const styles = StyleSheet.create({
   centeredContainer: {
@@ -11,10 +12,34 @@ const styles = StyleSheet.create({
   },
 });
 
-const Container: React.FC<any> = (props) => {
+type ContainerProps = {
+  loading?: boolean;
+  overrideStyle?: any;
+};
+
+const Container: React.FC<ContainerProps> = ({
+  loading = false,
+  overrideStyle,
+  children,
+}) => {
+  if (loading) {
+    return (
+      <View
+        style={[
+          defaultStyles.container,
+          styles.centeredContainer,
+          overrideStyle,
+        ]}
+      >
+        <ActivityIndicator size={64} color={colors.GRAY} />
+      </View>
+    );
+  }
   return (
-    <View style={[defaultStyles.container, styles.centeredContainer]}>
-      {props.children}
+    <View
+      style={[defaultStyles.container, styles.centeredContainer, overrideStyle]}
+    >
+      {children}
     </View>
   );
 };

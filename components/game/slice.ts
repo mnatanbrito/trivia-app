@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
+import { filter, map } from 'lodash';
 
 import { AppThunk } from '../../store';
 import { getTrivia } from './service';
@@ -7,7 +8,6 @@ import Question from '../question/Question';
 export type GameSlice = {
   started: boolean;
   currentQuestion: number;
-  correctAnswerCount: number;
   questions: Question[];
   isFetching: boolean;
   hasFetched: boolean;
@@ -17,7 +17,6 @@ export type GameSlice = {
 const initialState: GameSlice = {
   started: false,
   currentQuestion: 0,
-  correctAnswerCount: 0,
   questions: [],
   isFetching: false,
   hasFetched: false,
@@ -30,9 +29,11 @@ const gameSlice: any = createSlice({
   reducers: {
     resetGame(state) {
       state.started = false;
-      state.questions = [];
       state.currentQuestion = 0;
-      state.correctAnswerCount = 0;
+      state.questions = [];
+      state.isFetching = false;
+      state.hasFetched = false;
+      state.fetchError = '';
     },
     fetchStarted(state, action) {
       state.isFetching = true;
@@ -49,8 +50,8 @@ const gameSlice: any = createSlice({
       state.hasFetched = true;
       state.questions = questions;
     },
-    fetchFailed(state, action: PayloadAction<{ error: string }>) {
-      const { error } = action.payload;
+    fetchFailed(state, action: PayloadAction<string>) {
+      const error = action.payload;
 
       state.isFetching = false;
       state.hasFetched = true;
@@ -61,10 +62,7 @@ const gameSlice: any = createSlice({
 
       const questionInSlice = state.questions[state.currentQuestion];
       if (questionInSlice) {
-        const isRightAnswer = questionInSlice.correctAnswer === answer;
-        if (isRightAnswer) {
-          state.correctAnswerCount += 1;
-        }
+        questionInSlice.answer = answer;
 
         state.currentQuestion += 1;
       }
@@ -91,4 +89,20 @@ export const fetchTrivia = (): AppThunk => async (dispatch) => {
 export const questionsSelector = createSelector(
   (state: GameSlice) => state.questions,
   (items: Question[]) => items
+);
+
+export const correctAnswersCountSelector = createSelector(
+  (state: GameSlice) => state.questions,
+  (items: Question[]) =>
+    filter(items, (question) => question.answer === question.correctAnswer)
+      .length
+);
+
+export const answerListSelector = createSelector(
+  (state: GameSlice) => state.questions,
+  (items: Question[]) =>
+    map(items, (q) => ({
+      question: q.question,
+      isCorrectAnswer: q.answer === q.correctAnswer,
+    }))
 );

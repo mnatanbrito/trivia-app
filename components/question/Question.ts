@@ -8,4 +8,5 @@ export default interface Question {
   question: string;
   correctAnswer: string;
   incorrectAnswers: string[];
+  answer?: string;
 }
